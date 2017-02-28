@@ -9,9 +9,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    # log in new users automatically as part of the signup process
     if @user.save
-      flash[:success] = 'Welcome to the Sample App!'
-      redirect_to user_url(@user)
+      log_in @user
+      flash[:success] = "Welcome to the Sample App!"
+      redirect_to @user
     else
       render 'new'
     end
